@@ -130,15 +130,78 @@ If the light is visible, we compute the surface response using the bsdf function
 			  </tr>
 			</table>
 		</div>
+             <!--  different light ray amounts -->
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part3-3.png" width="400px"/>
+				  <figcaption>1 light ray</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3-4.png" width="400px"/>
+				  <figcaption>4 light rays</figcaption>
+				</td>
+			  </tr>
+			<tr>
+			<td style="text-align: center;">
+			  <img src="part3-5.png" width="400px"/>
+			  <figcaption>16 light rays</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="part3-6.png" width="400px"/>
+			  <figcaption>64 light rays</figcaption>
+			</td>
+		       </tr>
+			</table>
+		</div>
 			
 		<h2>Part 4: Global Illumination</h2>
 		To implement our at_least_one_bounce_radiance indirect lighting function that simulates global illumination, we recursively trace rays after the first bounce, and account for indirect lighting by sampling the BSDF and then using Russian roulette to terminate rays with a probability of 0.3. 
 Specifically, first we calculate the position of the intersection by taking the ray’s origin and adding the direction scaled by the distance to the intersection. Then, we calculated w_out by taking the negative ray direction in world coordinates. Next, we used our one_bounce_radiance function to get the light from bounce 1, which we will add to L_out, the total radiance. For our recursive base case, we terminate the function and return the total radiance if we reach our predetermined max bounces, or if no more light gets scattered. Then, we sample a new ray direction based on the material properties at the intersection. Then, we create a new ray at that intersection point and send it in the sampled direction. In task three, we implemented Russian roulette to decide whether or not the ray continues, using the coin_flip function with probability 0.3. The indirect light then gets scaled and added to total radiance, which is returned at the end of the function. Additionally, importance sampling prioritizes the more important light paths.
 
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part4-1.png" width="400px"/>
+				  <figcaption>Spheres</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4-2.png" width="400px"/>
+				  <figcaption>Wall-e</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+			
 		<h2>Part 5: Adaptive Sampling</h2>
 		The function raytrace_pixel implements adaptive sampling to optimize the ray tracing process. This adaptive sampling method allows the path tracer to efficiently allocate resources, focusing computation on areas of the image where further refinement is needed and stopping early in areas where the radiance estimate has already stabilized. The function first initializes variables to track the number of samples, the accumulated radiance, and two variables s1 and s2 to store running statistics needed for variance calculation. For each pixel, the function loops over a specified number of samples, generating random samples within the pixel and converting them to normalized image coordinates. Then a ray is generated from the camera, and the radiance along the ray is estimated using the est_radiance_global_illumination function. The radiance is accumulated into the total radiance for the pixel. Also, the illuminance of the radiance sample is used to update the running sum and squared sum of illuminance values.
 After each batch of samples, the function calculates the mean and variance of the radiance estimates. The mean is the average of the illuminance values, while the variance is calculated from the running sums. The uncertainty, I, is then calculated using the formula involving the variance and the number of samples, with a 1.96 multiplier for a 95% confidence interval. If the uncertainty becomes small enough, as defined by the condition I <= mean * maxTolerance, the function breaks out of the sampling loop early. This stops further sampling when the variance is low enough, indicating that additional samples would not significantly improve the estimate of the pixel's radiance. Once all necessary samples are collected, the final radiance is averaged over the total number of samples, and the result is stored in the sample buffer for the pixel. The function also tracks the number of samples used for the pixel in the sampleCountBuffer. 
-
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part5-1.png" width="400px"/>
+				  <figcaption>Spheres</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part5-1_rate.png" width="400px"/>
+				  <figcaption>Wall-e</figcaption>
+				</td>
+			  </tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="part5-2.png" width="400px"/>
+				  <figcaption>Spheres</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part5-2_rate.png" width="400px"/>
+				  <figcaption>Wall-e</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 <!-- 		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		
