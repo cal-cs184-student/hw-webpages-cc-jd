@@ -210,6 +210,11 @@ Specifically, first we calculate the position of the intersection by taking the 
 		   </table>
 		</div>
 
+		<h4>Comparing between 2nd and 3rd bounce</h4>
+		<p>Our rendered images for the bunny don’t match with what is expected for the un-accumulated bounces as they are a lot lighter and the images after the one for m=0 are pretty identical. However, based on the example using the lambertian spheres, I would have likely seen less light diffusion throughout the scene for the 2nd bounce compared to the first bounce. The scene would look more naturally illuminated compared to the first bounce, but still dim since the light bounced twice so far.
+At the third bounce, the image would likely appear darker than the second bounce image. This would be due to the fact that each successive bounce loses energy due to absorption upon impact and scattering, leading to less light contribution. More bounces means more indirect illumination, but they also diminish in intensity which contributes to a darker tone. 
+</p>
+
 		<h3>Accumulated bounces</h3>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
