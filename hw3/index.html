@@ -115,6 +115,21 @@ If the light is visible, we compute the surface response using the bsdf function
 </p>
 			<p>Analysis: When comparing the bunny images rendered using the two sampling methods for direct lighting, you can see that the image generated using the uniform hemisphere sampling method shows noticeable graininess, with a slightly darker overall hue across the whole image. This graininess suggests that the lighting has not been sampled as efficiently, leading to a more noisy and less refined appearance. In contrast, the image produced with light sampling is smoother and more polished, with each color more uniformly distributed and without any dark or black pixels. The lighting looks more consistent, providing a more accurate and visually pleasing representation, as light sampling effectively focuses on sampling from the light sources themselves and thus reducing noise and improving the quality of the image. 
 </p>
+
+           <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part3-1.png" width="400px"/>
+				  <figcaption>Uniform hemisphere</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part3-2.png" width="400px"/>
+				  <figcaption>Lighting sampling</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 			
 		<h2>Part 4: Global Illumination</h2>
 		To implement our at_least_one_bounce_radiance indirect lighting function that simulates global illumination, we recursively trace rays after the first bounce, and account for indirect lighting by sampling the BSDF and then using Russian roulette to terminate rays with a probability of 0.3. 
