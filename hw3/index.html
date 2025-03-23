@@ -243,6 +243,78 @@ Specifically, first we calculate the position of the intersection by taking the 
 			</tr>
 		   </table>
 		</div>
+
+		<h3>with Russian Roulette</h3>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part4-6_0.png" width="400px"/>
+				  <figcaption>m=0</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4-6_1.png" width="400px"/>
+				  <figcaption>m=1</figcaption>
+				</td>
+			      <td style="text-align: center;">
+			      <img src="part4-6_2.png" width="400px"/>
+			      <figcaption>m=2</figcaption>
+			     </td>
+			  </tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="part4-6_3.png" width="400px"/>
+				  <figcaption>m=3</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4-6_4.png" width="400px"/>
+				  <figcaption>m=4</figcaption>
+				</td>
+			      <td style="text-align: center;">
+			      <img src="part4-6_100.png" width="400px"/>
+			      <figcaption>m=100</figcaption>
+			     </td>
+			</tr>
+		   </table>
+		</div>
+
+	<h3>Comparing different sample per pixel values</h3>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="part4-8_1.png" width="400px"/>
+				  <figcaption>sample-per-pixel rate = 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4-8_2.png" width="400px"/>
+				  <figcaption>sample-per-pixel rate = 2</figcaption>
+				</td>
+			      <td style="text-align: center;">
+			      <img src="part4-8_4.png" width="400px"/>
+			      <figcaption>sample-per-pixel rate = 4</figcaption>
+			     </td>
+			  </tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="part4-8_8.png" width="400px"/>
+				  <figcaption>sample-per-pixel rate = 8</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="part4-8_16.png" width="400px"/>
+				  <figcaption>sample-per-pixel rate = 16</figcaption>
+				</td>
+			      <td style="text-align: center;">
+			      <img src="part4-8_64.png" width="400px"/>
+			      <figcaption>sample-per-pixel rate = 64</figcaption>
+			     </td>
+			     <td style="text-align: center;">
+			      <img src="part4-8_1024.png" width="400px"/>
+			      <figcaption>sample-per-pixel rate = 1024</figcaption>
+			     </td>
+			</tr>
+		   </table>
+		</div>
 			
 		<h2>Part 5: Adaptive Sampling</h2>
 		The function raytrace_pixel implements adaptive sampling to optimize the ray tracing process. This adaptive sampling method allows the path tracer to efficiently allocate resources, focusing computation on areas of the image where further refinement is needed and stopping early in areas where the radiance estimate has already stabilized. The function first initializes variables to track the number of samples, the accumulated radiance, and two variables s1 and s2 to store running statistics needed for variance calculation. For each pixel, the function loops over a specified number of samples, generating random samples within the pixel and converting them to normalized image coordinates. Then a ray is generated from the camera, and the radiance along the ray is estimated using the est_radiance_global_illumination function. The radiance is accumulated into the total radiance for the pixel. Also, the illuminance of the radiance sample is used to update the running sum and squared sum of illuminance values.
