@@ -79,7 +79,10 @@ To determine the exact intersection point, we compute the barycentric coordinate
 		<h2>Part 2: Bounding Volume Hierarchy</h2>
 		The BVH construction algorithm recursively partitions a set of primitives into a tree structure to accelerate ray-object intersection tests. First, we compute a bounding box that encloses all primitives. If the number of primitives in the current partition is less than or equal to the maximum leaf size, a leaf node is created to store them. Otherwise, the algorithm finds a suitable splitting axis and point to divide the primitives into two subgroups.
 The splitting heuristic we used selects the axis with the largest extent from the bounding box of primitive centroids, to ensure a more balanced partition. If the y-axis has the largest extent, we split along it; otherwise, we compare the x-axis and z-axis, selecting the one with the greater extent. The actual split point is chosen as the centroid of this bounding box along the chosen axis. We then partitioned primitives based on whether their centroids fall to the left or right of this split point. If the partitioning fails (all primitives fall into one group), we go back to splitting at the midpoint of the list. Finally, the algorithm recursively constructs left and right child nodes using the divided primitive sets. 
-<div style="display: flex; flex-direction: column; align-items: center;">
+<p>Analysis:
+With BVH acceleration, the lucy image took 0.6174 seconds to render, while the dragon image took 3.1903 seconds. Without BVH acceleration, lucy took about 145.2 seconds to finish rendering, and the dragon image took even longer, at around 746.2 seconds on my computer. It is clear to see that BVH acceleration helps to significantly reduce the time it takes to render images, especially those that have moderately complex geometries.
+</p>
+			<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
